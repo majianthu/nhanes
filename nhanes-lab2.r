@@ -6,8 +6,7 @@ csv2 = read.csv("~/Rworks/nhanes/lab2.csv")
 n = dim(csv2)[2]
 len = 150
 
-
-mxcor1 = mxcor2 = mxcor3 = mxsigma1 = mxce1 = matrix(0,n,n)
+mxcor1 = mxcor2 = mxcor3 = mxsigma1 = mxgamma1 = mxce1 = matrix(0,n,n)
 for(i in 1:n){
   for(j in i:n){
     v12 = na.omit(csv2[,c(i,j)])
@@ -24,6 +23,7 @@ for(i in 1:n){
     
     cop1 = construct_empirical_copula(v12)
     mxsigma1[i,j] = mxsigma1[j,i] = wolfCOP(para = cop1, as.sample = TRUE)
+    mxgamma1[i,j] = mxgamma1[j,i] = giniCOP(para = cop1, as.sample = TRUE)
     
     v12[,1] = v12[,1] + max(abs(v12[,1])) * 0.00005 * runif(len)
     v12[,2] = v12[,2] + max(abs(v12[,2])) * 0.00005 * runif(len)
@@ -39,3 +39,4 @@ x11(); levelplot(mxcor1, xlab = '', ylab = '')
 x11(); levelplot(mxcor2, xlab = '', ylab = '')
 x11(); levelplot(mxcor3, xlab = '', ylab = '')
 x11(); levelplot(mxsigma1, xlab = '', ylab = '')
+x11(); levelplot(mxgamma1, xlab = '', ylab = '')
