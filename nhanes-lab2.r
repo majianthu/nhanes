@@ -4,12 +4,12 @@ library(copBasic)
 
 csv2 = read.csv("~/Rworks/nhanes/lab2.csv")
 n = dim(csv2)[2]
-len = 150
 
 mxcor1 = mxcor2 = mxcor3 = mxsigma1 = mxgamma1 = mxce1 = matrix(0,n,n)
 for(i in 1:n){
   for(j in i:n){
     v12 = na.omit(csv2[,c(i,j)])
+    len = 150
     if(dim(v12)[1] < 20){
       next
     }else if(dim(v12)[1]>len){
@@ -17,6 +17,7 @@ for(i in 1:n){
     }else{
       len = dim(v12)[1]
     }
+    
     mxcor1[i,j] = mxcor1[j,i] = cor(v12)[1,2]
     mxcor2[i,j] = mxcor2[j,i] = cor(v12,method = "spearman")[1,2]
     mxcor3[i,j] = mxcor3[j,i] = cor(v12,method = "kendall")[1,2]
