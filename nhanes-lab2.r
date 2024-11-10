@@ -35,7 +35,7 @@ for(i in 1:n){
   }
 }
 
-x11(); levelplot(mxce1,xlab = '', ylab = '')
+x11(); mxce1[which(mxce1==0)] = min(mxce1); levelplot(mxce1,xlab = '', ylab = '')
 x11(); levelplot(mxcor1, xlab = '', ylab = '')
 x11(); levelplot(mxcor2, xlab = '', ylab = '')
 x11(); levelplot(mxcor3, xlab = '', ylab = '')
